@@ -1,0 +1,130 @@
+lsblk -> used to show the disk list
+df -h --> to show the disk utilization
+du -csh * --> to show the folders size 
+rsync --> Is a command-line tool for copying files and directories between local and remote systems.    /cp
+rpm -q oMM --> use to check the version of amm
+Disk Management --- fdisk -l(to list the disk details)
+echo $name_directory --> gives the output of the created file in the name_directory
+ls -lhrt --> gives the files in modified format
+sudo su - user_name --> to shift the user
+/name --> to find
+
+ip a --> gives private-ip
+curl ifconfig.io --> gives public-ip
+
+
+
+user and group
+
+
+
+o --> to create new link in vi command
+Esc+ set nu --> to set the line number
+dd --> to delete the line
+
+g-global
+re-regex
+p-print
+
+grep:
+	It used to find the particular word in the file
+	Eg: grep word(enter the word u need to search) filename
+
+	grep car samplefile.txt
+	grep -i car samplefile.txt(-i --> for case sensitivity)
+	grep -w car samplefile.txt(-w --> for word search)
+	grep -x car samplefile.txt(-x --> to match the particular line)
+	grep -v car samplefile.txt(-v --> to print all the line expect the line which has car)
+	grep -m 3 car samplefile.txt(-m 3 --> to print first 3 line that contain the word car)
+	grep -o car samplefile.txt(-o --> only match)
+	grep -r car .(to search the word from the current directry to the sub-dir which are attached to this directry)
+	grep -r car /(/ --> for root directry)
+	grep -r -l car .(-l --> find the file name which contain the word car)
+	grep -r -L car .(-L --> find the file name which not-contain the word car)
+	grep -c car samplefile.txt(-c --> to find the count of the word in the file)
+	grep -c -i car samplefile.txt(for case sensitivity)
+	grep -A 3 car samplefile.txt(-A --> shows the 3 lines after the line which contain car)
+	grep -B 3 car samplefile.txt(-B --> shows the 3 lines before the line which contain car)
+	grep -3 car samplefile.txt(shows 3 lines before and after) or grep -C 3 car samplefile.txt
+	grep -E a? samplefile.txt(shows the words which contains letter a)
+
+
+Network commands:
+*****************
+ipconfig -->
+ipconfig/all --> 
+ipconfig/displaydns -->
+
+
+COMPRESS:
+********
+
+Compressing and Decompressing:
+	gzip - default compress
+	gunzip - default decompress
+	bzip - default compress
+	bunzip - default decompress
+
+archival program:
+	tar -> default compress
+	tar -xvf -> default decompress
+	tar -czvf -> to create compress file
+	zip
+	unzip
+
+gzip - default compress:
+***********************
+	grip textfile.txt --> it will compress the file and convert the file name as textfile.txt.gz
+	grip -r filename --> compress all the file in the directry
+
+
+
+root root
+user and groups
+
+
+Screen:
+*******
+for creating screen section use the below command 
+screen -S (name of the file)
+ctrl+a d --> getback to terminal
+screen -r (name of the file)
+
+
+
+
+
+
+
+
+
+For connecting instance through ssh:
+************************************
+
+copy the id_rsa.pub key to (authorized key) file path in which instance you need to connect
+run this command after copying the key to the instance --> run the command in jumphost(ssh -i id_rsa -p 2222 root@172.31.48.109)
+
+
+1.create a ssh-key file in the instance-1 (id_rsa.pub)
+2.copy the key to the authorized_keys file path in the instance-2 which you need to connect
+3.run the command in instance-1 (ssh -i id_rsa -p 2222 root@172.31.48.109)/(ssh -i /home/ajith/.ssh/id_rsa -p 2222 root@172.31.50.158)
+
+
+For copying the ssh-key to another instance:
+********************************************
+ssh-copy-id -i /home/ajith/.ssh/id_rsa.pub -p 2222 username@private-ip
+
+
+
+
+
+connecting instance through ssh using Password:
+***********************************************
+1. Enable ssh root login in sshd_config file (vi /etc/ssh/sshd_config)
+2. Then try to login from jumphost to target server using root user
+
+
+1. edit the config file in root user which you need to connect (vi /etc/ssh/sshd_config) update
+2. restart the sshd using systemctl restart sshd.service
+3. Then try to login from jumphost to target server using root user
+	ansible -m ping all --ask-pass

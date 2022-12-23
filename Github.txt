@@ -1,0 +1,38 @@
+
+Github --> Used to store the software in the github server
+		   Eg:(used to access the file from multiple places or devices)
+	  
+	  
+commands:
+*********
+
+git clone url --> download the repository to local
+git add --> add the file in local
+git commit -m "msg" --> writing the commant for the changing file(check point)
+
+	short cut for both add & commit:
+		git commit -am "msg"
+	
+git status --> gives the status
+git push --> move from local to github
+git pull --> get the updated file in github
+	merge conflicts --> after running the pull command, if the local & remote file are different its shows the merge conflicts error
+		Eg:
+			a=1;
+			b=2;
+			<<<<< HEAD
+			c=3; --> local change
+			=====
+			c=32; --> remote change
+			>>>>> 3289fd29d2bc39a --> conflicts commit hash
+			
+git rest --hard <commit hash> --> to get back to the which commit you need
+git branch --> check the branch
+git checkout -b "name" --> create new branch
+git checkout name --> to switch branch
+git merge name --> merge two branch
+git push -u origin dev --> to push the branch
+
+
+
+dev -- ansible code 

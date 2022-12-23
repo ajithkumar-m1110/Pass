@@ -1,0 +1,5 @@
+IAC --> Infrastructure As a Code
+tools for IAC --> Terrafrorm (accepts all include VM)
+				  AWS cloudformtion
+				  Azure resource manager
+				  Google cloud deployment manager

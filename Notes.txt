@@ -1,0 +1,250 @@
+
+http://ipeople.ilink-digital.com/
+
+what is ssh
+	Secure Shell(SSH) connecting to server with the local machine with secure network protocol, using port-22 
+
+how to create ssh key
+how to connect through ssh key between two instance
+ssh port
+	Used for communication and allows remote administration acces to the VM
+
+
+
+stickey bit --(used on folders/files in order to avoid deletion of a folder even the user has its full permission)
+	        --chmod +t (folder/file name) use this command to make the folder/files into stickey
+
+
+
+firewall in linux  --- systemctl status firewalld(used to check the firewall status)
+		   --- firewall-cmd -->state(used to check the state of firewall)
+		   --- firewall-cmd -->list-all(used to get the firewall details in server)
+ 
+scp (--l or scp man)
+
+
+Shell scripting:
+***************
+Shell/Sh/bourne Shell --> The command which are typing in the terminal are called shell
+
+Types --> Bash (Default)
+	  ash -> lightweight runs in low-memory
+	  korn -> use for programming features
+	  tcsh -> to attact c programmers
+	  zsh -> advanced shell it incorporates features from bash, tcsh, and korn
+
+Bash shell can operate in two modes:
+	1. Interactive mode
+	(writing commands directly to the shell)
+
+	2.Programming mode
+	(writing shell scripts)
+
+Steps to create Shell Scripts:
+	nano text.sh (use this command to create a shell scripts)
+	chmod +x test.sh (convert the file to executable one)
+	./test.sh (to run the shell scripts)
+
+
+
+
+
+
+splunk --> used to show the logs
+
+CrowdStrike --> its used to mointer and to upload in server
+
+opsgenie --> altering
+
+uptrends --> monitering
+
+Tenable --> 
+
+
+
+LDAP (Lightweight Directory Access):
+***********************************
+	* Any one can able to access the files or directory in a organization, if he has a LDAP permission.
+	* Port No:389
+	* Is a software protocol for enabling anyone to locate data about organizations, individuals and other
+resources such as files and devices in a network.
+	* It helps computer to make into domain members.
+
+
+
+
+Login into Jumphoste:
+*********************
+ssh -i C:\Users\ajithkumarm\Desktop\ilink\Keys\shantanu-prod-amm-test.pem ajith@54.244.136.49
+
+
+Connect the instance through Jumphoste:
+***************************************
+ssh -i keyfilename username@private-ip
+
+Eg --> ssh -i testkey -p 2222 imtadmin@172.31.58.23
+
+
+To login into Instance:
+***********************
+ssh -i location/keyfilename username@public-ip
+
+
+To copy the file to Instance:
+*****************************
+scp -i keypath sourcefilepath ec2-user@public-ip:desgninationpath
+
+Eg:
+***
+scp -i C:\Users\ajithkumarm\Downloads\test-01.pem C:\Users\ajithkumarm\Desktop\Tenable\abc\NessusAgent-10.1.4-es7.x86_64.rpm ec2-user@52.70.249.12:/home/ec2-user/Tena
+
+
+To copy the file to Local:
+**************************
+scp -i keypath username@ec2ip:sourcefilepath desgninationpath
+
+Eg --> scp -i C:\Users\ajithkumarm\Desktop\ilink\Keys\shantanu-prod-amm-test.pem ajith@54.244.136.49:/home/ajith/.ssh/testkey C:\Users\ajithkumarm\Downloads
+              
+
+scp jump:/home/ajith/.ssh/testkey C:\Users\ajithkumarm\Downloads
+
+scp C:\Users\ajithkumarm\Desktop\Ansible\Launch-AMI-and-configure-on-new-instance.yml jump:/home/ajith
+
+
+
+
+For connecting instance through ssh:
+************************************
+
+copy the id_rsa.pub key to (authorized key) file path in which instance you need to connect
+run this command after copying the key to the instance --> run the command in jumphost(ssh -i id_rsa -p 2222 root@172.31.48.109)
+
+
+1.create a ssh-key file in the instance-1 (id_rsa.pub)
+2.copy the key to the authorized_keys file path in the instance-2 which you need to connect
+3.run the command in instance-1 (ssh -i id_rsa -p 2222 root@172.31.48.109)/(ssh -i /home/ajith/.ssh/id_rsa -p 2222 root@172.31.50.158)
+
+
+For copying the ssh-key to another instance:
+********************************************
+ssh-copy-id -i /home/ajith/.ssh/id_rsa.pub -p 2222 username@private-ip
+
+
+connecting instance through ssh using Password:
+***********************************************
+1. Enable ssh root login in sshd_config file (vi /etc/ssh/sshd_config)
+2. Then try to login from jumhost to target server using root user
+
+
+
+
+
+
+Teraform --> 
+
+Mumshart --> for gubernet and docker
+
+
+
+Goals in i-people:
+******************
+Deliverables:
+*************
+Deliveries:
+  update timesheet on timesheet
+  completed tasks on time
+  attend the internal meeting
+  attend KT section
+
+Learning:
+*********
+Certifications:
+  AWS
+  linus
+
+Organization Development Initiatives:
+*************************************
+Attending Training Section:
+  Town Hall Meeting
+  Training Section on Docker
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AWS:
+****
+CloudFormation --> it helps to create and manage AWS resources
+
+
+SSM in AWS --> a server used to configure and manager a collection of Ec2 instance
+			   used to see the highlevel details from the centerlized
+			   
+			   
+cidr range in vpc --> stands for Classless Inter-DomainRouting, is an IP addressing scheme that improves the allocation of IP addresses.
+
+
+network class -->
+
+
+netmask --> A subnet mask is a 32-bit number created by setting setting network bits to all 1s and host bits to all 0s 
+			the subnet mask separates the IP address into network and host addresses.
+
+			
+gateway --> to create API(Application Programming Interface), and to secure the rest API, manage and to scale
+	Amazon API gateway is an AWS service for creating, maintaining, monitoring, and securing REST APIs at any scale.
+	
+
+routetable --> to communicate between the subnets
+
+
+
+update the contact in aws ldap
+
+
+Active Directory:
+*****************
+DNS --> Domain Name Services
+NLB --> Network Load Balancer
+
+
+
+Enter file in which to save the key (/home/ec2-user/.ssh/id_rsa): key
+
+
+
+we are adding our public-ip in instances(through authorized key) and connecting through the private-ip to the instances.
+If both get matched only we can able to connect it.
+
+
+
+
+windows+v --> gives the history of copied list
+
+
+
+To clear the logs:
+******************
+/opt/inmotiontechnology/scripts/misc/logcleaner.sh
+
+
+
+
+ssh -i ~/.ssh/id_ed25519 -p 2222 root@172.31.7.229

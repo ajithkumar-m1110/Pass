@@ -1,0 +1,170 @@
+
+Docker --> https://kodekloud.com/lessons/docker-commands/
+
+
+Note:
+*****
+Use the following link to install Docker on ubuntu
+	https://docs.docker.com/engine/install/ubuntu/
+
+After installing Docker on ubuntu do the flowing steps to add the user to the Docker
+	sudo chmod 666 /var/run/docker.sock
+	sudo usermod -aG docker USER / sudo usermod -aG docker ${USER}
+
+
+Docker --> It is a Devops tool designed to make it easier to create, deploy, and run the built applications by using containers.
+		   Containers allow a developer to package up an application with all of the parts it needs,
+		   such as libraries and other dependencies, and ship it all out as one package.
+
+
+	Benifities --> Its working in my machine, and why its not working in your machine? resolved 'Build once and deploy anywhere'
+				   Docker containers can run on any platform AWS EC2, Google Cloud Platform, Rackspace, Virtual Box, ect.
+				   Docker images can be version controlled.
+				   Rapid deployment.
+
+
+container --> container allow a developer to package yp an application with all of the parts it needs, such as libraries and other dependencies,
+			  and ship it all out as one package
+			  container is an isolated, secured shipping box, which is produced or created when the docker image is run
+
+
+images --> is a read only template\file, composed of layer file system, needed to build a running docker conatiner, basically the running instance of the image.
+           once it created it can't be modifiy, but we create an new image with help of exicting image as a base image
+           images are used to build the container
+           is template that can be used to create a container or bunch of container
+
+
+Docker Engine --> Docker engine is simply the docker application that is installed on your host machine. It works like a client-server application
+
+Docker Hub --> It is a repocitory to store our images
+
+
+
+
+container are present inside the images
+Commands:
+*********
+docker container create name --> create a container
+run --> used to run the docker container
+ps --> list out all running container & basic information
+ps -a --> see all the container
+stop container_name/container_ID --> stop container
+rm container_name --> remove container
+images --> list the images
+rmi filename --> remove images (before removing the images check onces no container should present in it)
+pull --> pull the image(pull the images & store it on hosts)
+run kodekloud/simple-webapp --> run the code in present screen (press CTRL+C to quit)
+run -d kodekloud/simple-webapp --> run the code in background screen (like screening section in linux)
+attach a043d(first four digit of contain ID) --> toget back into the screen section
+run -it centos bash -->(-it) automatically login into the container after running
+run -p 80:5000 name --> used to port mapping(80:5000 --> 80-> host & 5000->container)
+logs container_name --> list out the logs
+inspect container_ID --> gives the internal ip of the container & and others details
+docker run -e environment docker_file --> to pass the environment to the file
+docker run --cpus=.5 ubuntu --> to specify the no. of cpus
+docker run --memory=100m ubuntu --> to specify the memory
+vi /root/webapp-color(directory)/Dockerfile --> to find the base image
+
+
+
+build a docker image:(docker images --> is template that can be used to create a container or bunch of container)
+*********************
+docker build -t name .
+
+To create my Own images:
+************************
+1. OS-
+2. Update apt repocitory
+3. Install dependencies using apt
+4. Install Python dependencies using pip
+5. Copy source code to /opt folder
+6. Run the web server using "flask" command
+
+
+Dockerfile:(is a text file return in a specific format in an instruction & arugument manner) --> docker build .(to run the dockerfile)
+***********
+
+FROM Ubuntu
+RUN apt-get update && apt-get -y install python
+RUN pip install flask flask-mysql
+COPY . /opt/source-code
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
+
+docker build . -f Dockerfile -t mmumshad/my-custom-app
+docker push mmumshad/my-custom-app
+
+
+Run an application using Ubuntu(EG):
+************************************
+apt-get update
+apt-get install -y python
+apt-get install python-pip
+pip install flask
+create/copy application code in /opt/app.py
+
+FLASK_APP=/opt/app.py flask run --host=0.0.0.0
+
+
+docker Compoase:
+****************
+-create a configuration file in yaml format & put together two or more container in single docker host
+   Eg: docker-compose up
+
+links --> used to link two or more container together
+  Eg: docker run -d -name=vote -p 5000:80 --link redis:redis voting-app
+
+
+compose Reference:
+******************
+https://docs.docker.com/compose/
+https://docs.docker.com/engine/reference/commandline/compose/
+https://github.com/dockersamples/example-voting-app
+
+
+Volume mounting:(mount a volume from the volume directory)
+****************
+-docker run -v volume_folder_name:/var/lib/mysql image_name --> use to create a volume in the container.
+	when the volume is mountaded into the container, incase if the container get destroyed we can able to access the data present in the volume
+
+
+Bind mounting:(mount a dir from any location from docker hosts)
+**************
+- docker run -v /data/mysql:/var/lib/mysql image_name 
+  it create a container and mount the data to the container
+
+
+Networks:
+*********
+when you install docker its create three network automatically
+	Bridege(default) --> private internal network on host gests internal ip in range 172.17.0.0 (docker run ubuntu) 
+	none --> run in isoloated network (docker run ubuntu --network=none)
+	host (docker run ubuntu --network=host)
+
+mysql.connect(container_name) --> to connect two container
+docker inspect container_name --> to identify the network it is attached to
+docker network inspect container_name --> to find the subnet configured to it
+
+
+docker swarm --> combine multiple docker machine together
+
+
+
+
+
+
+
+
+
+                Virtual Machine                  Docker
+				***************                  ******
+OS              we need to run it one by one <-> we can run it simutaneously
+startup time	minutes                      <-> milliseconds
+Disk Space      large						 <-> small
+Protability     can move between hardware    <-> run it on any where(server, AWS cloud, Microsoft Azure)
+Efficiency      less						 <-> high
+
+
+
+
+cluster
+spot instances

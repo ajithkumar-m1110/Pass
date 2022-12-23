@@ -1,0 +1,72 @@
+
+Kubernetes is an open-source container orchestration system for automating software deployment, scaling, and management.
+
+It is a container orchestration technology used to orchestrate the deployment and management of hunders and thousands of containers in a clustered environment.
+
+Kubernetes automtes operatinoal tasks of container management and includes built-in commands for deploying applications,
+rolling out changes to your applications, scaling your applications up and down to fit changing needs, mointoring your applications,
+and more making it easier to manage applications.
+
+
+
+Kubernetes has two types nodes
+	Master node
+	worker node
+	
+Kubernetes definition file has four sections
+	API version(is specific to what we are creating)
+	kind(replication controller)
+	metadata(lable)
+	spec(spec section defines what's inside the object we are creating)
+	
+***
+to create a replication controller:
+	kubectl create -f file_name.yml
+
+***
+Different between replication controller & replicas:
+	Both are working same, Both creates multiple copies of pods
+	In replicaset we have to provide selector
+	which mean configuration of replicaset and replication controller is differnet
+	
+
+
+applications are run inside the pod(like a container/deployment unit) i.e pod are present inside the worker node
+	one applications are allowed to run inside the pod or we can run more but (recommanded is only one)
+
+
+cluster --> set of nodes grouped together
+node(minions -> used in past) --> machine(physicall/virtual) where kubernets is installed, container will launched by kubernets
+kubectl --> it deploys a docker container by creating a pod
+POD's --> where applications run, pod are present inside the worker node
+		  we create a template section under spec to provide a pod template to be used by the replication controller to create replicas
+kudeadm --> helps us to setup a multi node cluster with master and workers on seperate machine
+replication controller --> helps us to run multiple instances of a single part in the kubernets cluster thus provinding high availability(creates multiple instances of a pod)
+						   another reason, we need a replication controller is to create multiple parts to share the load across them
+
+
+
+using API Server we are communicating with kubernets
+etcd --> to store the deployment data
+kubelet --> communicate b/w master & worker node
+kube-proxy --> through this user can access the applications
+
+
+create -f deployment.yml --> to create a deployment file
+kubectl get all --> gives the current status
+minikube dashboard --> launch dashboard
+kubectl describe pod --> gives details inside the pod
+
+
+
+Commands:
+*********
+
+kubectl run hellow-minikude --> used to deploy a manage applications on a kubernets cluster, to get cluster info, status of other nodes and manage things
+kubectl cluster-info --> to view information about the cluster
+kubectl get nodes --> to list all nodes part of the cluster
+
+
+
+replication controller
+replica set

@@ -1,0 +1,105 @@
+
+Ansible --> used to copy a file from jumphost to many instances in a single command
+	        it consist of playook and host inventory, modules
+	        * playbook-->instruction are noted in the playbook, ansible will read and execute
+	        * host Inventory-->used to note the types of server we are used
+
+
+How Ansible Work:
+*****************
+	* it will push the modules to the server or instances(there are 450 modules in ansible depends upon the task it will create modules)
+	* execute the task in the playbook, once the process completed it will delete the modules
+	* it will connect through ssh to each instances
+
+
+How to setup Ansible in EC2:
+****************************
+https://thecodecloud.in/ansible-installation-configuration-amazon-linux-ec2-instance-aws/
+  Note: from last to 4th command we need to copy the ip from master to client
+        run the command in master and put the ip address of the client one
+
+
+
+Steps to execute Ansible Playbook:
+**********************************
+	create a playbook file
+	create a hosts file
+
+
+To start Ansible Playbook:
+**************************
+	ansible-playbook -i hosts playbook name
+
+
+To create Roles in Ansible:
+***************************
+	command--> ansible-galaxy init Filename
+
+
+To check the Ansible:
+*********************
+ansible -m ping all (connecting instance through ssh using keys)
+ansible -m ping all --ask-pass (connecting instance through ssh using Password)
+
+
+Notes:
+******
+ansible-vault decrypt filename
+ansible-vault encrypt filename
+
+
+Ansible Playbook:
+*****************
+---
+- name: abc install & start services
+  hosts: all (create the hosts and put your instances ip address)
+  become: true
+
+  tasks:
+  - name: install abc
+    yum:
+      name: abc
+      state: latest
+
+  - name: start abc
+    service:
+      name: abc
+      state: started
+
+
+Command Used to Execute Playbook:
+*********************************
+ansible-playbook <ansible-playbook filename>
+
+
+
+For connecting instance through ssh:
+************************************
+
+copy the id_rsa.pub key to (authorized key) file path in which instance you need to connect
+run this command after copying the key to the instance --> run the command in jumphost(ssh -i id_rsa -p 2222 root@172.31.48.109)
+
+
+1.create a ssh-key file in the instance-1 (id_rsa.pub)
+2.copy the key to the authorized_keys file path in the instance-2 which you need to connect
+3.run the command in instance-1 (ssh -i id_rsa -p 2222 root@172.31.48.109)/(ssh -i /home/ajith/.ssh/id_rsa -p 2222 root@172.31.50.158)
+
+
+For copying the ssh-key to another instance:
+********************************************
+ssh-copy-id -i /home/ajith/.ssh/id_rsa.pub -p 2222 username@private-ip
+
+
+
+
+
+connecting instance through ssh using Password:
+***********************************************
+1. Enable ssh root login in sshd_config file (vi /etc/ssh/sshd_config)
+2. Then try to login from jumphost to target server using root user
+
+
+1. edit the config file in root user which you need to connect (vi /etc/ssh/sshd_config) update
+2. restart the sshd using systemctl restart sshd.service
+3. Then try to login from jumphost to target server using root user
+	ansible -m ping all --ask-pass 

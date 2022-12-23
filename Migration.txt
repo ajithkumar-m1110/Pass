@@ -1,0 +1,39 @@
+
+copy the created public key file to the old server root user in authorized_key file
+change the inbound rule in old server as (Custom TCP 2222)
+
+
+After Migration Activity:
+*************************
+1.remove the security group of added in the old instances
+2.remove the public key added in the old server authorized_key dir
+
+test-2.17.4
+
+
+In Non-Prod:
+************
+systemctl start httpd
+- remove the self-signed name in the mentioned file name
+- command the added line in the /etc/httpd/conf.d/ssl.conf file (#SSLCertificateChainFile /etc/pki/tls/certs/ca-bundle.crt)
+
+
+
+Launch AMI and configure on new instance:
+- for rsync 
+
+On OLDAMM:
+- dump 
+
+Final Rsync and database dump restore on new instance:
+-gunzip -c /mnt/amm_data/inmotion.sql.gz | mysql -u root --password=$DBPWD inmotion
+-rsync --info=progress2 --stats -a -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222" $OLDAMM:/mnt/amm_data/home/inmotion /mnt/amm_data/home/ 
+	&& ICOND="/mnt/amm_data/opt/tomcat/webapps/inmotion/vehicle-icons" 
+	&& scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 2222 $OLDAMM:$ICOND/* $ICOND
+	
+	
+	
+execute the amm.config 
+
+
+test-2-17-3-1.airlink.com
