@@ -102,4 +102,4 @@ connecting instance through ssh using Password:
 1. edit the config file in root user which you need to connect (vi /etc/ssh/sshd_config) update
 2. restart the sshd using systemctl restart sshd.service
 3. Then try to login from jumphost to target server using root user
-	ansible -m ping all --ask-pass 
+	ansible -m ping all --ask-pass
