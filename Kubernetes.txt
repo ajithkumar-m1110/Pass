@@ -3,7 +3,7 @@ Kubernetes is an open-source container orchestration system for automating softw
 
 It is a container orchestration technology used to orchestrate the deployment and management of hunders and thousands of containers in a clustered environment.
 
-Kubernetes automtes operatinoal tasks of container management and includes built-in commands for deploying applications,
+Kubernetes automtes operational tasks of container management and includes built-in commands for deploying applications,
 rolling out changes to your applications, scaling your applications up and down to fit changing needs, mointoring your applications,
 and more making it easier to manage applications.
 
@@ -16,20 +16,9 @@ Kubernetes has two types nodes
 Kubernetes definition file has four sections
 	API version(is specific to what we are creating)
 	kind(replication controller)
-	metadata(lable)
+	metadata(name & label)
 	spec(spec section defines what's inside the object we are creating)
 	
-***
-to create a replication controller:
-	kubectl create -f file_name.yml
-
-***
-Different between replication controller & replicas:
-	Both are working same, Both creates multiple copies of pods
-	In replicaset we have to provide selector
-	which mean configuration of replicaset and replication controller is differnet
-	
-
 
 applications are run inside the pod(like a container/deployment unit) i.e pod are present inside the worker node
 	one applications are allowed to run inside the pod or we can run more but (recommanded is only one)
@@ -41,9 +30,46 @@ kubectl --> it deploys a docker container by creating a pod
 POD's --> where applications run, pod are present inside the worker node
 		  we create a template section under spec to provide a pod template to be used by the replication controller to create replicas
 kudeadm --> helps us to setup a multi node cluster with master and workers on seperate machine
-replication controller --> helps us to run multiple instances of a single part in the kubernets cluster thus provinding high availability(creates multiple instances of a pod)
+replication controller --> creates multiple instances of a pod
+						   helps us to run multiple instances of a single part in the kubernets cluster thus provinding high availability
 						   another reason, we need a replication controller is to create multiple parts to share the load across them
+	
+to create a replication controller:
+	kubectl create -f file_name.yml
 
+***
+Different between replication controller & replicas:
+	Both are working same, Both creates multiple copies of pods
+	In replicaset we have to provide selector
+	which mean configuration of replicaset and replication controller is differnet
+	
+	
+
+Deployment:
+	A kubernets deployment tells kubernets how to create or modify instances of the pods that hold a containerized application.
+	Deployments can help or efficiently scale the number of replica pods, enable the rollout of updated code in a controlled manner,
+	or roll back to an earlier deployment version if necessary
+
+Deployment Strategy:(has two types)
+	Recreate --> (delete all applications and updating in at a time)
+	Rolling update --> (deleting the applications one by one and updating)
+	
+
+Networking:
+	Kubernetes networking allows kubernetes components to communicate with each other and with other applications.
+	The kubernetes platform is different from other networking platforms because it is based on a flat network structure that eliminates the need to map host ports to container ports.
+	IP adress is assigned to a POD
+	
+	
+Service:
+	Service act as a intermediator to access the pod from our Laptop
+	if not, first we need to connect(SSH) to the kubernetes node and after this only we can able to access the pod present inside the node.
+	if service present inside the node, we can able to access the pod directly from our laptop.
+	
+Services Types:
+	NodePort --> the service makes an internal pod accessible on a port on the node
+	ClusterIP --> the service creates a virtual IP inside the cluster to enable communication between different service such as set of front end servers to a set of back end servers
+	LoadBalancer --> provides load balancer for our application in supported cloud providers(Eg: to distribute load across to different web in your front end tier)
 
 
 using API Server we are communicating with kubernets
@@ -65,8 +91,42 @@ Commands:
 kubectl run hellow-minikude --> used to deploy a manage applications on a kubernets cluster, to get cluster info, status of other nodes and manage things
 kubectl cluster-info --> to view information about the cluster
 kubectl get nodes --> to list all nodes part of the cluster
+kubectl create -f file_name.yml --> to create a replication controller
+kubectl get replicationcontroller --> to get list of replication controller
+kubectl get pods --> to list the pods
 
 
 
-replication controller
-replica set
+
+
+
+kubernets administration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://ilink-digital.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/
